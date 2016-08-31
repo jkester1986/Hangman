@@ -7,6 +7,8 @@ var def = true; // only words with definitions ?
 
 var word = "";
 var wordCount = 0;
+var charsLeft = 0;
+var guessesLeft = 6;
 
 function getWord(type, c) {
     return $.get(
@@ -39,22 +41,26 @@ function generateWord(){
 				switch (word.charAt(i)){
 					case " ":
 						buildBlanks += "<div id=\"blank" + counter + "\"class=\"space\"></div>";
+						charsLeft --;
 						break;
 					case "-":
-						buildBlanks += "<div id=\"blank" + counter + "\" class=\"sym\">-</div>";;
+						buildBlanks += "<div id=\"blank" + counter + "\" class=\"sym\">-</div>";
+						charsLeft --;
 						break;
 					case "\'":
-						buildBlanks += "<div id=\"blank" + counter + "\" class=\"sym\">\'</div>";;
+						buildBlanks += "<div id=\"blank" + counter + "\" class=\"sym\">\'</div>";
+						charsLeft --;
 						break;
 					default:
 						buildBlanks += "<div id=\"blank" + counter + "\" class=\"blank\"></div>";
 						break;
 				}
 				counter ++;
-				
+				charsLeft ++;
 			}
 			//console.log("The word is " + word);
 			//console.log("There are " + counter + " characters in this word");
+			//console.log("Characters left to guess: " + charsLeft);
 			wordCount = counter;
 			var blanksDiv = document.getElementById("blanks");
 			blanksDiv.innerHTML = buildBlanks;
@@ -67,7 +73,8 @@ function generateWord(){
 
 function guess(letter){
 	//TODO: clear contents of input box
-	//TODO: determine when user wins
+	//TODO: deal with capitals
+	
 	
 	var indices = [];
 	for(var i=0; i<wordCount;i++) {
@@ -81,12 +88,24 @@ function guess(letter){
 			var fillBlank = document.getElementById("blank" + indices[i]);
 			fillBlank.className = "letter";
 			fillBlank.innerHTML = letter;
+			charsLeft --;
+			//console.log("Characters left to guess: " + charsLeft);
 		}
 	}
 	//if letter is wrong
 	else{
 		var wrongLetters = document.getElementById("wrongLetters");
 		wrongLetters.innerHTML += " " + letter;
+		guessesLeft --;
+	}
+	
+	if (charsLeft == 0){
+		console.log("You Win!");
+		alert("Congratulations, you win!");
+	}
+	if (guessesLeft == 0){
+		console.log("You Lose :(");
+		alert("Sorry, you lose :(. The word was " + word);
 	}
 	
 	document.getElementById("guessing").value = "";
