@@ -1,0 +1,29 @@
+@charset "utf-8";
+/* CSS Document */
+
+.blank {
+	height:30px;
+	width: 30px;
+	border-bottom:1px solid black;
+	margin:5px;
+	float: left;
+}
+
+.space {
+	height:30px;
+	width: 30px;
+	margin:5px;
+	float: left;
+}
+
+.sym {
+	height:30px;
+	margin:5px;
+	float: left;
+}
+
+#blanks {
+	min-height: 45px;
+	font-size: 18pt;
+    text-align: center;
+}

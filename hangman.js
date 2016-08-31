@@ -5,6 +5,8 @@ var key = 'a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5';
 var corpus = 2000; // higher = less complex words
 var def = true; // only words with definitions ?
 
+var word = "";
+
 function getWord(type, c) {
     return $.get(
         api + 
@@ -16,13 +18,42 @@ function getWord(type, c) {
 }
 
 function generateWord(){
-	var word = "";
 	$.when (getWord('noun'))
 		.then(function(genWord){
 			word = genWord.word;
-			console.log(word);
+			//console.log(word);
 			var wordDiv = document.getElementById("word");
 			wordDiv.innerHTML = word;
+			
+			
+			word = "test do's-don'ts";
+			//generate blank spaces
+			var buildBlanks = "";
+			var length = word.length;
+			var counter = 0;
+			
+			
+			
+			for(var i = 0; i < length; i++){
+				switch (word.charAt(i)){
+					case " ":
+						buildBlanks += "<div id=\"blank" + counter + "\"class=\"space\"></div>";
+						break;
+					case "-":
+						buildBlanks += "<div id=\"blank" + counter + "\" class=\"sym\">-</div>";;
+						break;
+					case "\'":
+						buildBlanks += "<div id=\"blank" + counter + "\" class=\"sym\">\'</div>";;
+						break;
+					default:
+						buildBlanks += "<div id=\"blank" + counter + "\" class=\"blank\"></div>";
+						break;
+				}
+				counter ++;
+			}
+			
+			var blanksDiv = document.getElementById("blanks");
+			blanksDiv.innerHTML = buildBlanks;
 		})
 		.fail(function() { alert('ERROR'); });
 	;
