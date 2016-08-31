@@ -2,9 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="hangman.js"></script>
 <title>Hangman</title>
 </head>
 
 <body>
+	<h1>Hangman</h1>
+    <!---This is where the image of the hangman will go/change--->
+    <!--<img src="" />-->
+    <p>Guess a letter, then hit enter</p>
+    <input type="text" maxlength="1" onkeydown="if (event.keyCode == 13) guess(this.value);"/>
+    <p id="wrongLetters"> </p>
 </body>
 </html>

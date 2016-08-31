@@ -1,3 +1,9 @@
 // JavaScript Document
-//things and stuff
-//more things and stuff
+function guess(letter){
+	//if letter is right
+	
+	
+	//if letter is wrong
+	var wrongLetters = document.getElementById("wrongLetters");
+	wrongLetters.innerHTML += " " + letter;
+}
