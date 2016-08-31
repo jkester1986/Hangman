@@ -102,13 +102,24 @@ function guess(letter){
 	if (charsLeft == 0){
 		console.log("You Win!");
 		alert("Congratulations, you win!");
+		resetGame();
 	}
 	if (guessesLeft == 0){
 		console.log("You Lose :(");
 		alert("Sorry, you lose :(. The word was " + word);
+		resetGame();
 	}
 	
 	document.getElementById("guessing").value = "";
 	
 	
+}
+
+function resetGame(){
+	var wrongLetters = document.getElementById("wrongLetters");
+	wrongLetters.innerHTML = "";
+	var word = "";
+	var wordCount = 0;
+	var charsLeft = 0;
+	var guessesLeft = 6;
 }
