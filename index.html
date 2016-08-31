@@ -19,7 +19,7 @@
     <div id="blanks"></div>
     <br/>
     <p>Guess a letter, then hit enter</p>
-    <input type="text" maxlength="1" onkeydown="if (event.keyCode == 13) guess(this.value);"/>
+    <input type="text" id="guessing" pattern="[A-Za-z]{1}" maxlength="1" onkeydown="if (event.keyCode == 13) guess(this.value);"/>
     <p id="wrongLetters"> </p>
 </body>
 </html>

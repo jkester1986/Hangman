@@ -16,7 +16,7 @@
 	float: left;
 }
 
-.sym {
+.sym, .letter {
 	height:30px;
 	margin:5px;
 	float: left;

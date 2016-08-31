@@ -6,6 +6,7 @@ var corpus = 2000; // higher = less complex words
 var def = true; // only words with definitions ?
 
 var word = "";
+var wordCount = 0;
 
 function getWord(type, c) {
     return $.get(
@@ -26,7 +27,7 @@ function generateWord(){
 			wordDiv.innerHTML = word;
 			
 			
-			word = "test do's-don'ts";
+			//word = "test do's-don'ts";
 			//generate blank spaces
 			var buildBlanks = "";
 			var length = word.length;
@@ -50,8 +51,11 @@ function generateWord(){
 						break;
 				}
 				counter ++;
+				
 			}
-			
+			//console.log("The word is " + word);
+			//console.log("There are " + counter + " characters in this word");
+			wordCount = counter;
 			var blanksDiv = document.getElementById("blanks");
 			blanksDiv.innerHTML = buildBlanks;
 		})
@@ -62,10 +66,30 @@ function generateWord(){
 }
 
 function guess(letter){
+	//TODO: clear contents of input box
+	//TODO: determine when user wins
+	
+	var indices = [];
+	for(var i=0; i<wordCount;i++) {
+		if (word[i] === letter) indices.push(i);
+	}
 	//if letter is right
-	
-	
+	if(indices.length > 0){
+		console.log(indices);
+		var numRight = indices.length;
+		for(var i = 0; i < numRight; i++){
+			var fillBlank = document.getElementById("blank" + indices[i]);
+			fillBlank.className = "letter";
+			fillBlank.innerHTML = letter;
+		}
+	}
 	//if letter is wrong
-	var wrongLetters = document.getElementById("wrongLetters");
-	wrongLetters.innerHTML += " " + letter;
+	else{
+		var wrongLetters = document.getElementById("wrongLetters");
+		wrongLetters.innerHTML += " " + letter;
+	}
+	
+	document.getElementById("guessing").value = "";
+	
+	
 }
