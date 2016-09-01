@@ -28,6 +28,8 @@ function generateWord(){
 			var wordDiv = document.getElementById("word");
 			wordDiv.innerHTML = word;
 			
+			document.getElementById("numGuesses").innerHTML = guessesLeft;
+			
 			
 			//word = "test do's-don'ts";
 			//generate blank spaces
@@ -64,9 +66,12 @@ function generateWord(){
 			wordCount = counter;
 			var blanksDiv = document.getElementById("blanks");
 			blanksDiv.innerHTML = buildBlanks;
+			
+			document.getElementById("play").style.display = "none";
+			document.getElementById("gameContainer").style.display = "inherit";
 		})
 		.fail(function() { alert('ERROR'); });
-	;
+	
 	
 	return word;
 }
@@ -91,24 +96,32 @@ function guess(letter){
 			charsLeft --;
 			//console.log("Characters left to guess: " + charsLeft);
 		}
+		if (charsLeft == 0){
+			console.log("You Win!");
+			resetGame();
+			alert("Congratulations, you win!");
+			
+		}
 	}
 	//if letter is wrong
 	else{
 		var wrongLetters = document.getElementById("wrongLetters");
 		wrongLetters.innerHTML += " " + letter;
+		document.getElementById("hangmanImg").src = "images/Hangman" + guessesLeft + ".png";
 		guessesLeft --;
+		document.getElementById("numGuesses").innerHTML = guessesLeft;
+		
 	}
 	
-	if (charsLeft == 0){
-		console.log("You Win!");
-		alert("Congratulations, you win!");
-		resetGame();
-	}
+	//WHY DOES THIS FIRE BEFORE THE DOM STUFF EVEN WITH WHEN/THEN????
 	if (guessesLeft == 0){
 		console.log("You Lose :(");
-		alert("Sorry, you lose :(. The word was " + word);
+		oldWord = word;
 		resetGame();
+		alert("Sorry, you lose :(. The word was " + oldWord);
 	}
+	
+	
 	
 	document.getElementById("guessing").value = "";
 	
@@ -116,10 +129,16 @@ function guess(letter){
 }
 
 function resetGame(){
+	console.log("Game was reset");
 	var wrongLetters = document.getElementById("wrongLetters");
 	wrongLetters.innerHTML = "";
-	var word = "";
-	var wordCount = 0;
-	var charsLeft = 0;
-	var guessesLeft = 6;
+	var blanks = document.getElementById("blanks");
+	blanks.innerHTML = "";
+	document.getElementById("play").style.display = "inherit";
+	document.getElementById("gameContainer").style.display = "none";
+	document.getElementById("hangmanImg").src = "images/Hangman" + guessesLeft + ".png";
+	word = "";
+	wordCount = 0;
+	charsLeft = 0;
+	guessesLeft = 6;
 }
