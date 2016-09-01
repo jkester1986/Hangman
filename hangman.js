@@ -141,22 +141,42 @@ function guess(letter){
 		document.getElementById("hangmanImg").src = "images/Hangman" + guessesLeft + ".png";
 		guessesLeft --;
 		document.getElementById("numGuesses").innerHTML = guessesLeft;
-		
+		if (guessesLeft == 0){
+			console.log("You Lose :(");
+			oldWord = word;
+			resetGame();
+			alert("Sorry, you lose :(. The word was " + oldWord);
+		}
 	}
 	
-	//WHY DOES THIS FIRE BEFORE THE DOM STUFF EVEN WITH WHEN/THEN????
-	if (guessesLeft == 0){
-		console.log("You Lose :(");
-		oldWord = word;
-		resetGame();
-		alert("Sorry, you lose :(. The word was " + oldWord);
-	}
 	
 	
 	
 	document.getElementById("guessing").value = "";
 	
 	
+}
+
+function guessWord(wordGuess){
+	wordGuess = wordGuess.toLowerCase();
+	if(wordGuess === word){
+		console.log("You Win!");
+		resetGame();
+		alert("Congratulations, you win!");
+	}
+	else{
+		//what happens if wrong word guessed?
+		document.getElementById("hangmanImg").src = "images/Hangman" + guessesLeft + ".png";
+		guessesLeft --;
+		document.getElementById("numGuesses").innerHTML = guessesLeft;
+		document.getElementById("guessWord").value = "";
+		if (guessesLeft == 0){
+		console.log("You Lose :(");
+		oldWord = word;
+		resetGame();
+		alert("Sorry, you lose :(. The word was " + oldWord);
+	}
+	}
 }
 
 function resetGame(){
@@ -168,6 +188,7 @@ function resetGame(){
 	document.getElementById("play").style.display = "inherit";
 	document.getElementById("gameContainer").style.display = "none";
 	document.getElementById("hangmanImg").src = "images/Hangman0.png";
+	document.getElementById("guessWord").value = "";
 	word = "";
 	wordCount = 0;
 	charsLeft = 0;
