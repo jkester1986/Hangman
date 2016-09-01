@@ -16,17 +16,20 @@
     <!---This is where the image of the hangman will go/change--->
     
     <div id="gameContainer" style="display:none;">
-    	<img id="hangmanImg" src="images/Hangman0.png" />
+    	<div id="imgDiv"><img id="hangmanImg" src="images/Hangman0.png" /></div>
+        <div id="guessingDiv">
         <p id="word" style="display:none;"></p>
         <div id="blanks"></div>
         <br/>
         <p>Guess a letter, then hit enter</p>
+        <p id="alreadyGuessed" style="display:none;">You already guessed that letter...</p>
         <input type="text" id="guessing" pattern="[A-Za-z]{1}" maxlength="1" onkeydown="if (event.keyCode == 13) guess(this.value);"/>
         <div>
             <p>Number of wrong guesses left:</p>
             <p id="numGuesses"></p>
             <h3>Wrong Letters:</h3>
             <p id="wrongLetters"> </p>
+        </div>
         </div>
     </div>
 </body>

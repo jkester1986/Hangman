@@ -27,3 +27,7 @@
 	font-size: 18pt;
     text-align: center;
 }
+
+#imgDiv, #guessingDiv {
+	float:left;
+}

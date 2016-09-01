@@ -9,6 +9,7 @@ var word = "";
 var wordCount = 0;
 var charsLeft = 0;
 var guessesLeft = 6;
+var rightGuesses = [];
 
 function getWord(type, c) {
     return $.get(
@@ -77,24 +78,47 @@ function generateWord(){
 }
 
 function guess(letter){
-	//TODO: clear contents of input box
 	//TODO: deal with capitals
 	
+	document.getElementById("alreadyGuessed").style.display = "none";
+	
+	var wasGuessed = false;
 	
 	var indices = [];
-	for(var i=0; i<wordCount;i++) {
-		if (word[i] === letter) indices.push(i);
+	
+	//letter already in rightGuesses
+	if (rightGuesses.indexOf(letter) > -1){
+		
+		console.log("here's your array: " + rightGuesses);
+		//console.log("index is: " + rightGuesses.indexOf(letter));
+		wasGuessed = true;
+		//TODO:message saying you already guessed that letter
+		console.log("you already guessed the letter " + letter);
 	}
-	//if letter is right
+	else{
+		for(var i=0; i<wordCount;i++) {
+			if (word[i] === letter) {
+				//console.log("type of letter is " + typeof letter);
+				//console.log("adding the letter " + letter + " to rightGuesses");
+				if (!wasGuessed) rightGuesses.push(letter);
+				//console.log(rightGuesses);
+				indices.push(i);
+			}
+		}
+	}
+	
+	
+	//if letter is right (and a new letter)
 	if(indices.length > 0){
-		console.log(indices);
+		//console.log(indices);
+		
 		var numRight = indices.length;
 		for(var i = 0; i < numRight; i++){
 			var fillBlank = document.getElementById("blank" + indices[i]);
 			fillBlank.className = "letter";
 			fillBlank.innerHTML = letter;
 			charsLeft --;
-			//console.log("Characters left to guess: " + charsLeft);
+			console.log("Characters left to guess: " + charsLeft);
 		}
 		if (charsLeft == 0){
 			console.log("You Win!");
@@ -102,6 +126,11 @@ function guess(letter){
 			alert("Congratulations, you win!");
 			
 		}
+		
+	}
+	else if(wasGuessed){
+		//display message
+		document.getElementById("alreadyGuessed").style.display = "inherit";
 	}
 	//if letter is wrong
 	else{
@@ -136,9 +165,10 @@ function resetGame(){
 	blanks.innerHTML = "";
 	document.getElementById("play").style.display = "inherit";
 	document.getElementById("gameContainer").style.display = "none";
-	document.getElementById("hangmanImg").src = "images/Hangman" + guessesLeft + ".png";
+	document.getElementById("hangmanImg").src = "images/Hangman0.png";
 	word = "";
 	wordCount = 0;
 	charsLeft = 0;
 	guessesLeft = 6;
+	rightGuesses = [];
 }
