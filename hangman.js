@@ -25,6 +25,7 @@ function generateWord(){
 	$.when (getWord('noun'))
 		.then(function(genWord){
 			word = genWord.word;
+			word = word.toLowerCase();
 			//console.log(word);
 			var wordDiv = document.getElementById("word");
 			wordDiv.innerHTML = word;
@@ -79,6 +80,7 @@ function generateWord(){
 
 function guess(letter){
 	//TODO: deal with capitals
+	letter = letter.toLowerCase();
 	
 	document.getElementById("alreadyGuessed").style.display = "none";
 	
