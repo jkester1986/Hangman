@@ -31,3 +31,17 @@
 #imgDiv, #guessingDiv {
 	float:left;
 }
+
+#guessing {
+    width: 30px;
+    height: 30px;
+    font-size: 14pt;
+}
+
+#play {
+    font-size: 20pt;
+}
+
+#guessingDiv {
+    font-size: 18pt;
+}

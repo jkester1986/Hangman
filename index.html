@@ -23,7 +23,7 @@
         <br/>
         <p>Guess a letter, then hit enter</p>
         <p id="alreadyGuessed" style="display:none;">You already guessed that letter...</p>
-        <input type="text" id="guessing" pattern="[A-Za-z]{1}" maxlength="1" onkeydown="if (event.keyCode == 13) guess(this.value);"/>
+        <input type="text" id="guessing" pattern="[A-Za-z]{1}" maxlength="1" onkeydown="if (event.keyCode == 13) guess(this.value);" autofocus/>
         <div>
             <p>Number of wrong guesses left:</p>
             <p id="numGuesses"></p>
